@@ -34,6 +34,9 @@ class DeliveryListActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
+        binding.titleText.text="공동배달"
+
+
         binding.addItem.setOnClickListener {
             val intent = Intent(this, AddItemActivity::class.java)
             startActivity(intent)

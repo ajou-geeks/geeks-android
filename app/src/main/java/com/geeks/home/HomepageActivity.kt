@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.geeks.R
 import com.geeks.databinding.ActivityHomepageBinding
+import com.geeks.group.delivery.DeliveryListActivity
+import com.geeks.group.product.ProductListActivity
 import com.geeks.group.taxi.TaxiListActivity
 import com.google.android.material.button.MaterialButton
 
@@ -27,6 +29,16 @@ class HomepageActivity : AppCompatActivity() {
 
         binding.taxiButton.setOnClickListener {
             val intent = Intent(this, TaxiListActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.productButton.setOnClickListener {
+            val intent = Intent(this, ProductListActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.deliveryButton.setOnClickListener {
+            val intent = Intent(this, DeliveryListActivity::class.java)
             startActivity(intent)
         }
 

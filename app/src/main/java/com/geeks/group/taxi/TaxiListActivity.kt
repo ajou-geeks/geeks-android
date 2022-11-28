@@ -35,6 +35,8 @@ class TaxiListActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
+        binding.titleText.text="공동택시"
+
         binding.addItem.setOnClickListener {
             val intent = Intent(this, AddItemActivity::class.java)
             startActivity(intent)

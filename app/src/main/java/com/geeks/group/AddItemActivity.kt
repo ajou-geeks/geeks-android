@@ -115,6 +115,9 @@ class AddItemActivity : AppCompatActivity() {
         binding.input3.visibility=View.INVISIBLE
         binding.input4.visibility=View.INVISIBLE
 
+        binding.input1.hint="출발 장소"
+        binding.input2.hint="도착 장소"
+
         binding.input1.helperText="출발 장소를 입력해 주세요"
         binding.input2.helperText="도착 장소를 입력해 주세요"
 
@@ -124,6 +127,11 @@ class AddItemActivity : AppCompatActivity() {
     private fun setProduct(){
         binding.input3.visibility=View.VISIBLE
         binding.input4.visibility=View.INVISIBLE
+
+        binding.input1.hint="제목"
+        binding.input2.hint="수령 장소"
+        binding.input3.hint="가격"
+
 
         binding.input1.helperText="글의 제목을 입력해 주세요"
         binding.input2.helperText="수령 장소를 입력해 주세요"
@@ -135,6 +143,11 @@ class AddItemActivity : AppCompatActivity() {
     private fun setDelivery(){
         binding.input3.visibility=View.VISIBLE
         binding.input4.visibility=View.VISIBLE
+
+        binding.input1.hint="제목"
+        binding.input2.hint="수령 장소"
+        binding.input3.hint="최소 주문 금액"
+        binding.input4.hint="현재 주문 금액"
 
         binding.input1.helperText="글의 제목을 입력해 주세요"
         binding.input2.helperText="수령 장소를 입력해 주세요"
