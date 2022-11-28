@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.geeks.R
@@ -20,6 +21,8 @@ class AddItemActivity : AppCompatActivity() {
     private var _binding: ActivityAddItemBinding?=null
 
     private val binding get() = _binding!!
+
+    private var switching=0
 
     companion object {
         const val PERMISSION_REQUEST_CODE = 1001
@@ -92,8 +95,53 @@ class AddItemActivity : AppCompatActivity() {
             requestGalleryLauncher.launch(intent)
         }
 
+        binding.taxi.setOnClickListener {
+            setTaxi()
+        }
+
+        binding.product.setOnClickListener {
+            setProduct()
+        }
+
+        binding.delivery.setOnClickListener {
+            setDelivery()
+        }
+
         val view=binding.root
         setContentView(view)
+    }
+
+    private fun setTaxi(){
+        binding.input3.visibility=View.INVISIBLE
+        binding.input4.visibility=View.INVISIBLE
+
+        binding.input1.helperText="출발 장소를 입력해 주세요"
+        binding.input2.helperText="도착 장소를 입력해 주세요"
+
+        switching=0 //taxi view
+    }
+
+    private fun setProduct(){
+        binding.input3.visibility=View.VISIBLE
+        binding.input4.visibility=View.INVISIBLE
+
+        binding.input1.helperText="글의 제목을 입력해 주세요"
+        binding.input2.helperText="수령 장소를 입력해 주세요"
+        binding.input3.helperText="물품의 가격을 입력해 주세요"
+
+        switching=1
+    }
+
+    private fun setDelivery(){
+        binding.input3.visibility=View.VISIBLE
+        binding.input4.visibility=View.VISIBLE
+
+        binding.input1.helperText="글의 제목을 입력해 주세요"
+        binding.input2.helperText="수령 장소를 입력해 주세요"
+        binding.input3.helperText="최소 주문 금액을 입력해 주세요"
+        binding.input4.helperText="현재 주문 금액을 입력해 주세요"
+
+        switching=2
     }
 
     private fun calculateInSampleSize(fileUri: Uri, reqWidth: Int, reqHeight: Int): Int {
