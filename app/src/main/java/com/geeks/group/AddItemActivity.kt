@@ -12,10 +12,13 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.util.Pair
 import com.geeks.R
 import com.geeks.databinding.ActivityAddItemBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class AddItemActivity : AppCompatActivity() {
     private var _binding: ActivityAddItemBinding?=null
@@ -87,12 +90,17 @@ class AddItemActivity : AppCompatActivity() {
         }
 
         binding.addThumbnail.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
-            intent.type = "image/*"
-            requestGalleryLauncher.launch(intent)
+            if(switching!=0) {
+                val intent = Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                )
+                intent.type = "image/*"
+                requestGalleryLauncher.launch(intent)
+            }
+            else{
+                Toast.makeText(this, "택시는 썸네일을 등록하지 않습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.taxi.setOnClickListener {
@@ -105,6 +113,25 @@ class AddItemActivity : AppCompatActivity() {
 
         binding.delivery.setOnClickListener {
             setDelivery()
+        }
+
+        binding.inputDate.setOnClickListener {
+            val dateRangePicker =
+                MaterialDatePicker.Builder.dateRangePicker()
+                    .setTitleText("Select dates")
+                    .setSelection(
+                        Pair(
+                            MaterialDatePicker.todayInUtcMilliseconds(),
+                            MaterialDatePicker.todayInUtcMilliseconds()
+                        )
+                    )
+                    .build()
+
+            dateRangePicker.addOnPositiveButtonClickListener {
+                binding.inputDate.text=(it.first.toString()+it.second.toString())
+            }
+
+            dateRangePicker.show(supportFragmentManager, "tag")
         }
 
         val view=binding.root
