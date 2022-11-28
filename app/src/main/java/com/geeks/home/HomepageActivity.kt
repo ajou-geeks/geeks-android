@@ -42,6 +42,21 @@ class HomepageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.nameText.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.profileImage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.dormText.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+        }
+
         val view=binding.root
         setContentView(view)
     }
