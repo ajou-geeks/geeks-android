@@ -13,7 +13,21 @@
         android:theme="@style/Theme.Geeks"
         tools:targetApi="31">
         <activity
-            android:name=".TaxiListActivity"
+            android:name=".group.delivery.DeliveryListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".group.product.ProductListActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".group.taxi.TaxiListActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
