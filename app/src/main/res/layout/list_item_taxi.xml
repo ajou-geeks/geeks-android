@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/pink_light"
+    android:layout_height="88dp">
+
+    <TextView
+        android:id="@+id/destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:text="text_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="text_source"
+        app:layout_constraintTop_toBottomOf="@id/destination"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14dp"
+        android:textColor="@color/dark_gray"></TextView>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="text_time"
+        app:layout_constraintTop_toBottomOf="@id/source"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14dp"
+        android:textColor="@color/dark_gray"></TextView>
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:text="text_time"
+        app:layout_constraintTop_toBottomOf="@id/source"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="14dp"
+        android:textColor="@color/black"></TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
