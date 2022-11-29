@@ -27,4 +27,9 @@ interface API {
     fun createProduct(
         @Body initializeRequest: ProductCreateRequest
     ): Call<ProductCreateResponse>
+
+    @POST("/delivery-food")
+    fun createDelivery(
+        @Body initializeRequest: DeliveryCreateRequest
+    ): Call<DeliveryCreateResponse>
 }

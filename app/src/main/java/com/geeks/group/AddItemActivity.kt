@@ -20,9 +20,7 @@ import androidx.core.util.Pair
 import com.geeks.LoginActivity
 import com.geeks.R
 import com.geeks.databinding.ActivityAddItemBinding
-import com.geeks.model.LoginResponse
-import com.geeks.model.ProductCreateRequest
-import com.geeks.model.ProductCreateResponse
+import com.geeks.model.*
 import com.geeks.retrofit.RetrofitBuilder
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -44,6 +42,9 @@ class AddItemActivity : AppCompatActivity() {
     private var switching=0
 
     private var pickedDate: Long=Long.MIN_VALUE
+
+    private var hour=0
+    private var minute=0
 
     companion object {
         const val PERMISSION_REQUEST_CODE = 1001
@@ -152,17 +153,17 @@ class AddItemActivity : AppCompatActivity() {
             else{
                 val timePicker =
                     MaterialTimePicker.Builder()
-                        .setTimeFormat(TimeFormat.CLOCK_12H)
-                        .setHour(12)
-                        .setMinute(10)
-                        .setTitleText("마감 시간 설정")
+                        .setTimeFormat(TimeFormat.CLOCK_24H)
+                        .setHour(1)
+                        .setMinute(0)
+                        .setTitleText("마감 기간 설정")
                         .build()
 
                 timePicker.addOnPositiveButtonClickListener {
-                    val hour = timePicker.hour.toString()
-                    val minute = timePicker.minute.toString()
+                    hour = timePicker.hour
+                    minute = timePicker.minute
 
-                    binding.inputDate.text=hour + "시 " + minute + "분까지"
+                    binding.inputDate.text=hour.toString() + "시간 " + minute.toString() + "분 뒤 마감"
                 }
 
                 timePicker.show(supportFragmentManager, "time")
@@ -177,7 +178,7 @@ class AddItemActivity : AppCompatActivity() {
                 createProduct()
             }
             else{
-
+                createDelivery()
             }
         }
 
@@ -186,6 +187,8 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     private fun setTaxi(){
+        binding.inputDate.text="터치해서 선택"
+
         binding.input3.visibility=View.INVISIBLE
         binding.input4.visibility=View.INVISIBLE
 
@@ -199,6 +202,7 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     private fun setProduct(){
+        binding.inputDate.text="터치해서 선택"
         binding.input3.visibility=View.VISIBLE
         binding.input4.visibility=View.INVISIBLE
 
@@ -215,6 +219,7 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     private fun setDelivery(){
+        binding.inputDate.text="터치해서 선택"
         binding.input3.visibility=View.VISIBLE
         binding.input4.visibility=View.VISIBLE
 
@@ -241,6 +246,68 @@ class AddItemActivity : AppCompatActivity() {
                 })
         // 다이얼로그를 띄워주기
         builder.show()
+    }
+
+    private fun createDelivery(){
+        if(binding.inputText3.text.toString()=="" || binding.inputText4.text.toString()==""){
+            showDialog()
+        }
+
+        if(hour==0 && minute==0){
+            showDialog()
+        }
+
+        val currentMillis = System.currentTimeMillis()
+
+        val dateFormat=SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale("ko", "kr"))
+
+        val name=binding.inputText1.text.toString()
+        val destination=binding.inputText2.text.toString()
+        val minPrice=binding.inputText3.text.toString().toInt()
+        val amount=binding.inputText4.text.toString().toInt()
+        val maxParticipant=binding.slider.value.toInt()
+        val startTime=dateFormat.format(currentMillis).replace(" ", "T")
+
+        val endTimeCal=currentMillis+hour*1000*60*60 + minute*1000*60
+
+        val endTime=dateFormat.format(endTimeCal).replace(" ", "T")
+
+        if(name=="" || destination==""){
+            showDialog()
+        }
+
+        val request= DeliveryCreateRequest(
+            name=name, type1 = "분식", minPrice=minPrice, amount=amount, startTime=startTime, endTime=endTime,
+            maxParticipant=maxParticipant, destination=destination, thumbnailUrl = "https://geeks-new-bucket.s3.ap-northeast-2.amazonaws.com/image/aaa.jpeg"
+        )
+
+        Log.d("testlog", request.toString())
+        RetrofitBuilder.api.createDelivery(request).enqueue(object :
+            Callback<DeliveryCreateResponse> {
+            override fun onResponse(
+                call: Call<DeliveryCreateResponse>,
+                response: Response<DeliveryCreateResponse>
+            ) {
+                if(response.isSuccessful) {
+                    Log.d("testlog", response.body().toString())
+
+                    var data = response.body()!!
+
+                    Toast.makeText(this@AddItemActivity, "등록 완료", Toast.LENGTH_SHORT).show()
+
+                    finish()
+
+                }
+                else {
+                    Log.d("fail", response.code().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<DeliveryCreateResponse>, t: Throwable) {
+                Log.d("test", "실패$t")
+            }
+
+        })
     }
 
     private fun createProduct(){
