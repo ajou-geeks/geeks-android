@@ -14,7 +14,7 @@ object RetrofitBuilder {
             .setLenient()
             .create()
         val client= OkHttpClient.Builder()
-            //.addInterceptor(AuthInterceptor())
+            .addInterceptor(AuthInterceptor())
             .build()
 
         val retrofit = Retrofit.Builder()

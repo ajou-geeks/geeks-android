@@ -1,5 +1,6 @@
 package com.geeks.group
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.DialogInterface
 import android.content.Intent
@@ -16,9 +17,24 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.util.Pair
+import com.geeks.LoginActivity
 import com.geeks.R
 import com.geeks.databinding.ActivityAddItemBinding
+import com.geeks.model.LoginResponse
+import com.geeks.model.ProductCreateRequest
+import com.geeks.model.ProductCreateResponse
+import com.geeks.retrofit.RetrofitBuilder
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.*
 
 class AddItemActivity : AppCompatActivity() {
     private var _binding: ActivityAddItemBinding?=null
@@ -26,6 +42,8 @@ class AddItemActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private var switching=0
+
+    private var pickedDate: Long=Long.MIN_VALUE
 
     companion object {
         const val PERMISSION_REQUEST_CODE = 1001
@@ -116,22 +134,51 @@ class AddItemActivity : AppCompatActivity() {
         }
 
         binding.inputDate.setOnClickListener {
-            val dateRangePicker =
-                MaterialDatePicker.Builder.dateRangePicker()
-                    .setTitleText("Select dates")
-                    .setSelection(
-                        Pair(
-                            MaterialDatePicker.todayInUtcMilliseconds(),
-                            MaterialDatePicker.todayInUtcMilliseconds()
-                        )
-                    )
-                    .build()
+            if(switching==1) {
+                val dateRangePicker =
+                    MaterialDatePicker.Builder.datePicker()
+                        .setTitleText("Select dates")
+                        .build()
 
-            dateRangePicker.addOnPositiveButtonClickListener {
-                binding.inputDate.text=(it.first.toString()+it.second.toString())
+                dateRangePicker.addOnPositiveButtonClickListener {
+                    val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale("ko", "kr"))
+
+                    binding.inputDate.text = (dateFormat.format(it))
+                    pickedDate = it
+                }
+
+                dateRangePicker.show(supportFragmentManager, "date")
             }
+            else{
+                val timePicker =
+                    MaterialTimePicker.Builder()
+                        .setTimeFormat(TimeFormat.CLOCK_12H)
+                        .setHour(12)
+                        .setMinute(10)
+                        .setTitleText("마감 시간 설정")
+                        .build()
 
-            dateRangePicker.show(supportFragmentManager, "tag")
+                timePicker.addOnPositiveButtonClickListener {
+                    val hour = timePicker.hour.toString()
+                    val minute = timePicker.minute.toString()
+
+                    binding.inputDate.text=hour + "시 " + minute + "분까지"
+                }
+
+                timePicker.show(supportFragmentManager, "time")
+            }
+        }
+
+        binding.complete.setOnClickListener {
+            if(switching==0){
+
+            }
+            if(switching==1){
+                createProduct()
+            }
+            else{
+
+            }
         }
 
         val view=binding.root
@@ -182,6 +229,73 @@ class AddItemActivity : AppCompatActivity() {
         binding.input4.helperText="현재 주문 금액을 입력해 주세요"
 
         switching=2
+    }
+
+    private fun showDialog(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("업로드 실패")
+            .setMessage("모든 사항을 입력해 주세요")
+            .setPositiveButton("확인",
+                DialogInterface.OnClickListener { dialog, id ->
+
+                })
+        // 다이얼로그를 띄워주기
+        builder.show()
+    }
+
+    private fun createProduct(){
+
+        if(pickedDate==Long.MIN_VALUE || binding.inputText3.text.toString()==""){
+            showDialog()
+        }
+
+        val currentMillis = System.currentTimeMillis()
+
+        val dateFormat=SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale("ko", "kr"))
+
+        val name=binding.inputText1.text.toString()
+        val destination=binding.inputText2.text.toString()
+        val price=binding.inputText3.text.toString().toInt()
+        val maxParticipant=binding.slider.value.toInt()
+        val startTime=dateFormat.format(currentMillis).replace(" ", "T")
+        val endTime=dateFormat.format(pickedDate).replace(" ", "T")
+
+        if(name=="" || destination==""){
+            showDialog()
+        }
+
+        val request=ProductCreateRequest(
+            name=name, type1 = "음료", price=price, startTime=startTime, endTime=endTime,
+            maxParticipant=maxParticipant, destination=destination, thumbnailUrl = "https://geeks-new-bucket.s3.ap-northeast-2.amazonaws.com/image/aaa.jpeg"
+        )
+
+        Log.d("testlog", request.toString())
+        RetrofitBuilder.api.createProduct(request).enqueue(object :
+            Callback<ProductCreateResponse> {
+            override fun onResponse(
+                call: Call<ProductCreateResponse>,
+                response: Response<ProductCreateResponse>
+            ) {
+                if(response.isSuccessful) {
+                    Log.d("testlog", response.body().toString())
+
+                    var data = response.body()!!
+
+                    Toast.makeText(this@AddItemActivity, "등록 완료", Toast.LENGTH_SHORT).show()
+
+                    finish()
+
+                }
+                else {
+                    Log.d("fail", response.code().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<ProductCreateResponse>, t: Throwable) {
+                Log.d("test", "실패$t")
+            }
+
+        })
     }
 
     private fun calculateInSampleSize(fileUri: Uri, reqWidth: Int, reqHeight: Int): Int {

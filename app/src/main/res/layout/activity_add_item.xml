@@ -24,6 +24,18 @@
             android:textColor="@color/black"
             android:textStyle="bold">
         </TextView>
+
+        <TextView
+            android:id="@+id/complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="완료"
+            android:textSize="18dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/black"
+            android:textStyle="bold">
+        </TextView>
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
@@ -138,6 +150,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/inputText1"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -160,6 +173,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/inputText2"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -185,6 +199,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:id="@+id/inputText3"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -210,6 +225,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:id="@+id/inputText4"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>

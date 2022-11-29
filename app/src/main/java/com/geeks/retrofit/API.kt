@@ -1,8 +1,6 @@
 package com.geeks.retrofit
 
-import com.geeks.model.LoginRequest
-import com.geeks.model.LoginResponse
-import com.geeks.model.RegisterResponse
+import com.geeks.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -24,4 +22,9 @@ interface API {
     fun login(
         @Body initializeRequest: LoginRequest
     ): Call<LoginResponse>
+
+    @POST("/products") //create product
+    fun createProduct(
+        @Body initializeRequest: ProductCreateRequest
+    ): Call<ProductCreateResponse>
 }
