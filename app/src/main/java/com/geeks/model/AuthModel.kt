@@ -7,8 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class RegisterResponse(
     val email: String,
-    val file: String,
-    val authorityDtoSet: List<Authority>
+    val file: String
 ): Parcelable
 
 @Parcelize

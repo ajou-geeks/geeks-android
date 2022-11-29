@@ -106,6 +106,10 @@ class RegisterActivity : AppCompatActivity() {
             showDialogToGetFile()
         }
         else {
+            binding.idText.isErrorEnabled=false
+            binding.passwordText.isErrorEnabled=false
+            binding.passwordConfirmText.isErrorEnabled=false
+
             val inputEmail = binding.inputEmail.text.toString().replace("'", """\'""")
             val inputPassword = binding.inputPassword.text.toString().replace("'", """\'""")
             val inputPasswordConfirm = binding.inputPasswordConfirm.text.toString().replace("'", """\'""")
@@ -133,12 +137,19 @@ class RegisterActivity : AppCompatActivity() {
                     response: Response<RegisterResponse>
                 ) {
                     if (response.isSuccessful) {
-                        Toast.makeText(this@RegisterActivity, "등록되었습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@RegisterActivity, "회원 가입 되었습니다.", Toast.LENGTH_SHORT).show()
 
                         finish()
                     } else {
                         when (response.code()) {
                             400 -> Log.d("testlog", response.code().toString())
+                            409 -> {
+                                binding.idText.isErrorEnabled=true
+                                binding.idText.error="이미 가입된 이메일입니다."
+                            }
+                            500 -> {
+                                showDialogWrongFile()
+                            }
                         }
                         Log.d("testlog", response.code().toString())
                     }
@@ -157,6 +168,18 @@ class RegisterActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("회원가입 실패")
             .setMessage("입사확인서를 업로드해 주세요")
+            .setPositiveButton("확인",
+                DialogInterface.OnClickListener { dialog, id ->
+
+                })
+        // 다이얼로그를 띄워주기
+        builder.show()
+    }
+
+    private fun showDialogWrongFile(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("회원가입 실패")
+            .setMessage("올바른 입사확인서를 업로드해 주세요")
             .setPositiveButton("확인",
                 DialogInterface.OnClickListener { dialog, id ->
 
