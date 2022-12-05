@@ -4,10 +4,7 @@ import com.geeks.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
+import retrofit2.http.*
 
 interface API {
     @Multipart
@@ -32,4 +29,12 @@ interface API {
     fun createDelivery(
         @Body initializeRequest: DeliveryCreateRequest
     ): Call<DeliveryCreateResponse>
+
+    @GET("/product/list")
+    fun getProductList(
+        @Query("query") query:String?,
+        @Query("sort") sort: Int?,
+        @Query("page") page: Int?,
+        @Query("count") count: Int?
+    ): Call<GetProductResponse>
 }
