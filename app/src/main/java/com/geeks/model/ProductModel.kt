@@ -28,6 +28,12 @@ data class ProductCreateResponse(
 )
 
 @Parcelize
+data class GetProductResponse(
+    val totalCount: Int,
+    val elements: List<ProductModel>
+): Parcelable
+
+@Parcelize
 data class ProductModel(
     val id:Int,
     val name: String,
@@ -43,8 +49,3 @@ data class ProductModel(
     val userInfo: UserInfoModel
 ): Parcelable
 
-@Parcelize
-data class GetProductResponse(
-    val totalCount: Int,
-    val elements: List<ProductModel>
-): Parcelable

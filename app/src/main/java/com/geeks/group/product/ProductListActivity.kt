@@ -8,6 +8,7 @@ import android.view.MenuItem
 import com.geeks.R
 import com.geeks.databinding.ActivityGroupListBinding
 import com.geeks.group.AddItemActivity
+import com.geeks.group.adapter.ProductListAdapter
 import com.geeks.model.GetProductResponse
 import com.geeks.retrofit.RetrofitBuilder
 import retrofit2.Call
@@ -64,8 +65,9 @@ class ProductListActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Log.d("test", response.body().toString())
                     val data = response.body()!! // GsonConverter를 사용해 데이터매핑
-                    /*binding.rvList.isNestedScrollingEnabled=false
-                    binding.rvList.adapter= ItemListAdapter(data.data.items, name)*/
+
+
+                    binding.rvList.adapter= ProductListAdapter(data.elements)
 
                 }
             }
