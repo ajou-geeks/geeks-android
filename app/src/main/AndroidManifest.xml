@@ -22,6 +22,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".roommate.RoommateRegisterActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".group.delivery.DeliveryFeedActivity"
             android:exported="false">
             <meta-data

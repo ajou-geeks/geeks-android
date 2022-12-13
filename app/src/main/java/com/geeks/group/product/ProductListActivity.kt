@@ -55,7 +55,7 @@ class ProductListActivity : AppCompatActivity() {
     }
 
     private fun getProductList(){
-        RetrofitBuilder.api.getProductList(null, null, null, null).enqueue(object :
+        RetrofitBuilder.api.getProductList().enqueue(object :
             Callback<GetProductResponse> {
             override fun onResponse(
 

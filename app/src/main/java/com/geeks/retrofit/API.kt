@@ -20,7 +20,7 @@ interface API {
         @Body initializeRequest: LoginRequest
     ): Call<LoginResponse>
 
-    @POST("/products") //create product
+    @POST("/product") //create product
     fun createProduct(
         @Body initializeRequest: ProductCreateRequest
     ): Call<ProductCreateResponse>
@@ -32,9 +32,9 @@ interface API {
 
     @GET("/product/list")
     fun getProductList(
-        @Query("query") query:String?,
-        @Query("sort") sort: Int?,
+        /*@Query("query") query:String?,
+        @Query("sort") sort: String?,
         @Query("page") page: Int?,
-        @Query("count") count: Int?
+        @Query("count") count: Int?*/
     ): Call<GetProductResponse>
 }

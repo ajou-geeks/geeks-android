@@ -8,6 +8,7 @@ import com.geeks.databinding.ActivityHomepageBinding
 import com.geeks.group.delivery.DeliveryListActivity
 import com.geeks.group.product.ProductListActivity
 import com.geeks.group.taxi.TaxiListActivity
+import com.geeks.roommate.RoommateRegisterActivity
 import com.google.android.material.button.MaterialButton
 
 class HomepageActivity : AppCompatActivity() {
@@ -54,6 +55,11 @@ class HomepageActivity : AppCompatActivity() {
 
         binding.dormText.setOnClickListener {
             val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.registerButton.setOnClickListener {
+            val intent = Intent(this, RoommateRegisterActivity::class.java)
             startActivity(intent)
         }
 

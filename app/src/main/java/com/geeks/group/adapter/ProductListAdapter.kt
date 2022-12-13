@@ -26,7 +26,7 @@ class ProductListAdapter internal constructor(var productList: List<ProductModel
 
             itemView.findViewById<TextView>(R.id.title).text = _list.name
             itemView.findViewById<TextView>(R.id.destination).text=_list.destination
-            itemView.findViewById<TextView>(R.id.price).text = _list.price.toString()
+            itemView.findViewById<TextView>(R.id.price).text = _list.price.toString() + " 원"
 
         }
     }
