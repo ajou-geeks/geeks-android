@@ -37,4 +37,9 @@ interface API {
         @Query("page") page: Int?,
         @Query("count") count: Int?*/
     ): Call<GetProductResponse>
+
+    @GET("/product/{id}")
+    fun getProductDetail(
+        @Path("id") id: Int
+    ): Call<ProductModel>
 }

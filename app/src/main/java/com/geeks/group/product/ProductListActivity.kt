@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import com.geeks.R
 import com.geeks.databinding.ActivityGroupListBinding
 import com.geeks.group.AddItemActivity
@@ -67,7 +68,25 @@ class ProductListActivity : AppCompatActivity() {
                     val data = response.body()!! // GsonConverter를 사용해 데이터매핑
 
 
-                    binding.rvList.adapter= ProductListAdapter(data.elements)
+                    binding.rvList.adapter= ProductListAdapter(data.elements).apply{
+                        setItemClickListener(
+                            object : ProductListAdapter.ItemClickListener {
+                                override fun onClick(view: View, position: Int) {
+                                    val id=productList[position].id
+
+                                    val intent = Intent(
+                                        this@ProductListActivity,
+                                        ProductFeedActivity::class.java)
+
+                                    intent.apply {
+                                        this.putExtra("id",id) // 데이터 넣기
+                                    }
+                                    startActivity(intent)
+
+                                    onStop()
+                                }
+                            })
+                    }
 
                 }
             }
@@ -78,5 +97,10 @@ class ProductListActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onResume(){
+        getProductList()
+        super.onResume()
     }
 }
