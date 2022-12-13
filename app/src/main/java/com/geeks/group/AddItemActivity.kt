@@ -263,7 +263,7 @@ class AddItemActivity : AppCompatActivity() {
 
         val name=binding.inputText1.text.toString()
         val destination=binding.inputText2.text.toString()
-        val minPrice=binding.inputText3.text.toString().toInt()
+        val minAmount=binding.inputText3.text.toString().toInt()
         val amount=binding.inputText4.text.toString().toInt()
         val maxParticipant=binding.slider.value.toInt()
         val startTime=dateFormat.format(currentMillis).replace(" ", "T")
@@ -277,7 +277,7 @@ class AddItemActivity : AppCompatActivity() {
         }
 
         val request= DeliveryCreateRequest(
-            name=name, type1 = "분식", minPrice=minPrice, amount=amount, startTime=startTime, endTime=endTime,
+            name=name, type1 = "분식", minAmount=minAmount, amount=amount, startTime=startTime, endTime=endTime,
             maxParticipant=maxParticipant, destination=destination, thumbnailUrl = "https://geeks-new-bucket.s3.ap-northeast-2.amazonaws.com/image/aaa.jpeg"
         )
 

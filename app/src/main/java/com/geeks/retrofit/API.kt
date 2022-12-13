@@ -50,4 +50,9 @@ interface API {
     fun getProductDetail(
         @Path("id") id: Int
     ): Call<ProductModel>
+
+    @GET("/delivery/{id}")
+    fun getDeliveryDetail(
+        @Path("id") id: Int
+    ): Call<DeliveryModel>
 }

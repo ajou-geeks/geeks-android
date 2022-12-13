@@ -80,7 +80,7 @@ class DeliveryListActivity : AppCompatActivity() {
 
                                     val intent = Intent(
                                         this@DeliveryListActivity,
-                                        ProductFeedActivity::class.java)
+                                        DeliveryFeedActivity::class.java)
 
                                     intent.apply {
                                         this.putExtra("id",id) // 데이터 넣기
