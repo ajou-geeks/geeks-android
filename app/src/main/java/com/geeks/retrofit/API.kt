@@ -55,4 +55,9 @@ interface API {
     fun getDeliveryDetail(
         @Path("id") id: Int
     ): Call<DeliveryModel>
+
+    @POST("/roommate/profile")
+    fun createRoommateProfile(
+        @Body initializeRequest: CreateRoommateRequest
+    ): Call<CreateRoommateResponse>
 }
