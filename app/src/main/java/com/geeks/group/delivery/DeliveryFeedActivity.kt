@@ -69,7 +69,7 @@ class DeliveryFeedActivity : AppCompatActivity() {
                     binding.text1.text=data.destination
                     binding.text2.text="현재 인원 수 (${data.curParticipant} / 무제한)"
                     binding.text3.text="마감 시간 - ${data.endTime
-                        .substring(0 until 10).replace("-",". ")}"
+                        .substring(11 until 16)}"
 
                     binding.price1.text="최소주문금액"
                     binding.price2.text=": " + data.minAmount.toString() + " 원"

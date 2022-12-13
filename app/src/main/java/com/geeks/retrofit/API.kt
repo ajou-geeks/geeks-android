@@ -20,6 +20,11 @@ interface API {
         @Body initializeRequest: LoginRequest
     ): Call<LoginResponse>
 
+    @POST("/taxi")
+    fun createTaxi(
+        @Body initializeRequest: TaxiCreateRequest
+    ): Call<TaxiCreateResponse>
+
     @POST("/product") //create product
     fun createProduct(
         @Body initializeRequest: ProductCreateRequest
@@ -46,6 +51,10 @@ interface API {
         @Query("count") count: Int?*/
     ): Call<GetDeliveryResponse>
 
+    @GET("/taxi")
+    fun getTaxiList(
+    ): Call<List<TaxiModel>>
+
     @GET("/product/{id}")
     fun getProductDetail(
         @Path("id") id: Int
@@ -56,8 +65,17 @@ interface API {
         @Path("id") id: Int
     ): Call<DeliveryModel>
 
+    @GET("/taxi/{id}")
+    fun getTaxiDetail(
+        @Path("id") id: Int
+    ): Call<TaxiModel>
+
     @POST("/roommate/profile")
     fun createRoommateProfile(
         @Body initializeRequest: CreateRoommateRequest
     ): Call<CreateRoommateResponse>
+
+    @GET("/roommate/list")
+    fun searchRoommate(
+    ): Call<SearchRoommateResponse>
 }

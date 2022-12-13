@@ -171,14 +171,16 @@ class AddItemActivity : AppCompatActivity() {
         }
 
         binding.complete.setOnClickListener {
-            if(switching==0){
-
-            }
-            if(switching==1){
-                createProduct()
-            }
-            else{
-                createDelivery()
+            when (switching) {
+                0 -> {
+                    createTaxi()
+                }
+                1 -> {
+                    createProduct()
+                }
+                else -> {
+                    createDelivery()
+                }
             }
         }
 
@@ -194,11 +196,11 @@ class AddItemActivity : AppCompatActivity() {
 
         binding.input1.hint="출발 장소"
         binding.input2.hint="도착 장소"
-        binding.input2.hint="예상 가격"
+        binding.input3.hint="예상 가격"
 
         binding.input1.helperText="출발 장소를 입력해 주세요"
         binding.input2.helperText="도착 장소를 입력해 주세요"
-        binding.input2.helperText="예상 운행 요금을 입력해 주세요"
+        binding.input3.helperText="예상 운행 요금을 입력해 주세요"
 
         switching=0 //taxi view
     }
@@ -368,8 +370,7 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     private fun createTaxi(){
-
-        if(pickedDate==Long.MIN_VALUE || binding.inputText3.text.toString()==""){
+        if(hour==0 && minute==0){
             showDialog()
         }
 
@@ -377,28 +378,31 @@ class AddItemActivity : AppCompatActivity() {
 
         val dateFormat=SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale("ko", "kr"))
 
-        val name=binding.inputText1.text.toString()
+        val source=binding.inputText1.text.toString()
         val destination=binding.inputText2.text.toString()
         val price=binding.inputText3.text.toString().toInt()
         val maxParticipant=binding.slider.value.toInt()
         val startTime=dateFormat.format(currentMillis).replace(" ", "T")
-        val endTime=dateFormat.format(pickedDate).replace(" ", "T")
 
-        if(name=="" || destination==""){
+        val endTimeCal=currentMillis+hour*1000*60*60 + minute*1000*60
+
+        val endTime=dateFormat.format(endTimeCal).replace(" ", "T")
+
+        if(source=="" || destination==""){
             showDialog()
         }
 
-        val request=ProductCreateRequest(
-            name=name, type1 = "음료", price=price, startTime=startTime, endTime=endTime,
-            maxParticipant=maxParticipant, destination=destination, thumbnailUrl = "https://geeks-new-bucket.s3.ap-northeast-2.amazonaws.com/image/aaa.jpeg"
+        val request= TaxiCreateRequest(
+            source = source, startTime=startTime, endTime=endTime, price = price,
+            maxParticipant=maxParticipant, destination=destination,
         )
 
         Log.d("testlog", request.toString())
-        RetrofitBuilder.api.createProduct(request).enqueue(object :
-            Callback<ProductCreateResponse> {
+        RetrofitBuilder.api.createTaxi(request).enqueue(object :
+            Callback<TaxiCreateResponse> {
             override fun onResponse(
-                call: Call<ProductCreateResponse>,
-                response: Response<ProductCreateResponse>
+                call: Call<TaxiCreateResponse>,
+                response: Response<TaxiCreateResponse>
             ) {
                 if(response.isSuccessful) {
                     Log.d("testlog", response.body().toString())
@@ -415,7 +419,7 @@ class AddItemActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ProductCreateResponse>, t: Throwable) {
+            override fun onFailure(call: Call<TaxiCreateResponse>, t: Throwable) {
                 Log.d("test", "실패$t")
             }
 

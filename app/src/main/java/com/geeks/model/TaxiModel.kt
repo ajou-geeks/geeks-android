@@ -4,27 +4,21 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 data class TaxiCreateRequest(
-    val name: String,
-    val type1: String,
     val price: Int,
     val startTime: String,
     val endTime: String,
     val maxParticipant: Int,
-    val destination: String,
-    val thumbnailUrl: String
+    val source: String,
+    val destination: String
 )
 
 data class TaxiCreateResponse(
-    val id: Int,
-    val name: String,
-    val type1: String,
     val price: Int,
     val startTime: String,
     val endTime: String,
     val maxParticipant: Int,
-    val destination: String,
-    val thumbnailUrl: String,
-    val status: String
+    val source: String,
+    val destination: String
 )
 
 @Parcelize
@@ -35,16 +29,19 @@ data class GetTaxiResponse(
 
 @Parcelize
 data class TaxiModel(
-    val id:Int,
-    val name: String,
-    val type1: String,
+    val createdBy: Int,
+    val createdAt: String,
+    val updatedBy: Int,
+    val updatedAt: String,
+    val deleted: Boolean,
+    val deletedAt: String,
+    val id: Int,
+    val userId: Int,
     val price: Int,
     val startTime: String,
     val endTime: String,
     val maxParticipant: Int,
-    val curParticipant: Int,
+    val source: String,
     val destination: String,
-    val thumbnailUrl: String,
-    val status: String,
-    val userInfo: UserInfoModel
+    val status: String
 ): Parcelable
