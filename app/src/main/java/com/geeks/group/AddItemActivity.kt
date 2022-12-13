@@ -189,14 +189,16 @@ class AddItemActivity : AppCompatActivity() {
     private fun setTaxi(){
         binding.inputDate.text="터치해서 선택"
 
-        binding.input3.visibility=View.INVISIBLE
+        binding.input3.visibility=View.VISIBLE
         binding.input4.visibility=View.INVISIBLE
 
         binding.input1.hint="출발 장소"
         binding.input2.hint="도착 장소"
+        binding.input2.hint="예상 가격"
 
         binding.input1.helperText="출발 장소를 입력해 주세요"
         binding.input2.helperText="도착 장소를 입력해 주세요"
+        binding.input2.helperText="예상 운행 요금을 입력해 주세요"
 
         switching=0 //taxi view
     }
@@ -311,6 +313,61 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     private fun createProduct(){
+
+        if(pickedDate==Long.MIN_VALUE || binding.inputText3.text.toString()==""){
+            showDialog()
+        }
+
+        val currentMillis = System.currentTimeMillis()
+
+        val dateFormat=SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale("ko", "kr"))
+
+        val name=binding.inputText1.text.toString()
+        val destination=binding.inputText2.text.toString()
+        val price=binding.inputText3.text.toString().toInt()
+        val maxParticipant=binding.slider.value.toInt()
+        val startTime=dateFormat.format(currentMillis).replace(" ", "T")
+        val endTime=dateFormat.format(pickedDate).replace(" ", "T")
+
+        if(name=="" || destination==""){
+            showDialog()
+        }
+
+        val request=ProductCreateRequest(
+            name=name, type1 = "음료", price=price, startTime=startTime, endTime=endTime,
+            maxParticipant=maxParticipant, destination=destination, thumbnailUrl = "https://geeks-new-bucket.s3.ap-northeast-2.amazonaws.com/image/aaa.jpeg"
+        )
+
+        Log.d("testlog", request.toString())
+        RetrofitBuilder.api.createProduct(request).enqueue(object :
+            Callback<ProductCreateResponse> {
+            override fun onResponse(
+                call: Call<ProductCreateResponse>,
+                response: Response<ProductCreateResponse>
+            ) {
+                if(response.isSuccessful) {
+                    Log.d("testlog", response.body().toString())
+
+                    var data = response.body()!!
+
+                    Toast.makeText(this@AddItemActivity, "등록 완료", Toast.LENGTH_SHORT).show()
+
+                    finish()
+
+                }
+                else {
+                    Log.d("fail", response.code().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<ProductCreateResponse>, t: Throwable) {
+                Log.d("test", "실패$t")
+            }
+
+        })
+    }
+
+    private fun createTaxi(){
 
         if(pickedDate==Long.MIN_VALUE || binding.inputText3.text.toString()==""){
             showDialog()
