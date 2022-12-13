@@ -25,7 +25,7 @@ interface API {
         @Body initializeRequest: ProductCreateRequest
     ): Call<ProductCreateResponse>
 
-    @POST("/delivery-food")
+    @POST("/delivery")
     fun createDelivery(
         @Body initializeRequest: DeliveryCreateRequest
     ): Call<DeliveryCreateResponse>
@@ -37,6 +37,14 @@ interface API {
         @Query("page") page: Int?,
         @Query("count") count: Int?*/
     ): Call<GetProductResponse>
+
+    @GET("/delivery/list")
+    fun getDeliveryList(
+        /*@Query("query") query:String?,
+        @Query("sort") sort: String?,
+        @Query("page") page: Int?,
+        @Query("count") count: Int?*/
+    ): Call<GetDeliveryResponse>
 
     @GET("/product/{id}")
     fun getProductDetail(
