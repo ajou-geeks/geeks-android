@@ -9,6 +9,7 @@ import com.geeks.group.delivery.DeliveryListActivity
 import com.geeks.group.product.ProductListActivity
 import com.geeks.group.taxi.TaxiListActivity
 import com.geeks.roommate.RoommateRegisterActivity
+import com.geeks.roommate.RoommateSearchActivity
 import com.google.android.material.button.MaterialButton
 
 class HomepageActivity : AppCompatActivity() {
@@ -60,6 +61,11 @@ class HomepageActivity : AppCompatActivity() {
 
         binding.registerButton.setOnClickListener {
             val intent = Intent(this, RoommateRegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.searchButton.setOnClickListener {
+            val intent = Intent(this, RoommateSearchActivity::class.java)
             startActivity(intent)
         }
 
