@@ -239,11 +239,11 @@
                 app:layout_constraintTop_toBottomOf="@id/sleepType"
                 app:layout_constraintStart_toStartOf="parent"
 
-                android:text="*사자타입: 해뜨는 시각에 기상, 해지는 시간에 취침"
+                android:text="*곰 타입: 해뜨는 시각에 기상, 해지는 시간에 취침"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/black"
-                android:textSize="16dp"></TextView>
+                android:textSize="12dp"></TextView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/patternDetail"

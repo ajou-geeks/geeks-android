@@ -41,6 +41,22 @@ class RoommateRegisterActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
+        binding.bear.setOnClickListener {
+            binding.introText.text="*곰 타입: 해 뜨는 시간에 기상, 해 지는 시간에 취침"
+        }
+
+        binding.lion.setOnClickListener {
+            binding.introText.text="*사자 타입: 4~7시 기상, 8~9시 취침"
+        }
+
+        binding.wolf.setOnClickListener {
+            binding.introText.text="*늑대 타입: 8~10시 기상, 1~2시 취침"
+        }
+
+        binding.dolphin.setOnClickListener {
+            binding.introText.text="*돌고래 타입: 불규칙적 기상, 불규칙적 취침"
+        }
+
         binding.complete.setOnClickListener {
             createRoommate()
         }
