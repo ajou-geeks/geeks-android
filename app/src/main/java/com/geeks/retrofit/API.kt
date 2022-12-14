@@ -83,6 +83,16 @@ interface API {
     fun getNoteList(
     ): Call<GetNoteResponse>
 
+    @POST("/note")
+    fun sendNote(
+        @Body initializeRequest: SendNoteModel
+    ): Call<GetNoteRoomResponse>
+
+    @GET("/note/list")
+    fun getNoteRoom(
+        @Query("id") id:Int?
+    ): Call<GetNoteRoomResponse>
+
     @GET("/notice")
     fun getNoticeList(
     ): Call<GetNoticeResponse>

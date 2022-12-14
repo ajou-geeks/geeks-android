@@ -67,13 +67,15 @@ class NoteListActivity : AppCompatActivity() {
                             object : NoteListAdapter.ItemClickListener {
                                 override fun onClick(view: View, position: Int) {
                                     val id=noteList[position].id
+                                    val receiver=noteList[position].otherInfo.id
 
                                     val intent = Intent(
                                         this@NoteListActivity,
-                                        ProductFeedActivity::class.java)
+                                        NoteRoomActivity::class.java)
 
                                     intent.apply {
                                         this.putExtra("id",id) // 데이터 넣기
+                                        this.putExtra("receiver", receiver)
                                     }
                                     startActivity(intent)
 
