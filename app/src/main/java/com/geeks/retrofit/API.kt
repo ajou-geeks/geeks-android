@@ -82,4 +82,8 @@ interface API {
     @GET("/note/room")
     fun getNoteList(
     ): Call<GetNoteResponse>
+
+    @GET("/notice")
+    fun getNoticeList(
+    ): Call<GetNoticeResponse>
 }
