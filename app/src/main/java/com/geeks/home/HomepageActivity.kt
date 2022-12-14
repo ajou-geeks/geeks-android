@@ -8,6 +8,8 @@ import com.geeks.databinding.ActivityHomepageBinding
 import com.geeks.group.delivery.DeliveryListActivity
 import com.geeks.group.product.ProductListActivity
 import com.geeks.group.taxi.TaxiListActivity
+import com.geeks.note.NoteListActivity
+import com.geeks.notice.NoticeListActivity
 import com.geeks.roommate.RoommateRegisterActivity
 import com.geeks.roommate.RoommateSearchActivity
 import com.google.android.material.button.MaterialButton
@@ -66,6 +68,16 @@ class HomepageActivity : AppCompatActivity() {
 
         binding.searchButton.setOnClickListener {
             val intent = Intent(this, RoommateSearchActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.chatButton.setOnClickListener {
+            val intent = Intent(this, NoteListActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.notification.setOnClickListener {
+            val intent = Intent(this, NoticeListActivity::class.java)
             startActivity(intent)
         }
 

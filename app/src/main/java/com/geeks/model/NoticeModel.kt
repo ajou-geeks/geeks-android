@@ -1,5 +1,6 @@
 package com.geeks.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -15,4 +16,4 @@ data class NoticeModel(
     val title: String,
     val content: String,
     val createdAt: String
-)
+): Parcelable

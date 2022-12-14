@@ -1,5 +1,6 @@
 package com.geeks.model
 
+import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 data class GetNoteResponse(
@@ -12,4 +13,4 @@ data class NoteListModel(
     val id: Int,
     val recentNoteContent: String,
     val otherInfo: OtherInfoModel
-)
+):Parcelable
