@@ -7,9 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.geeks.R
-import com.geeks.model.NoteListModel
 import com.geeks.model.NoticeModel
-import com.geeks.note.adapter.NoteListAdapter
 
 class NoticeListAdapter internal constructor(var noticeList: List<NoticeModel>)
     : RecyclerView.Adapter<NoticeListAdapter.ListViewHolder>() {
