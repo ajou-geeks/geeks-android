@@ -9,3 +9,10 @@ data class UserInfoModel(
     val nickname: String,
     val dormitory: String
 ): Parcelable
+
+@Parcelize
+data class OtherInfoModel(
+    val id: Int,
+    val nickname: String,
+    val profileImage: String
+): Parcelable

@@ -78,4 +78,8 @@ interface API {
     @GET("/roommate/list")
     fun searchRoommate(
     ): Call<SearchRoommateResponse>
+
+    @GET("/note/room")
+    fun getNoteList(
+    ): Call<GetNoteResponse>
 }
