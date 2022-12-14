@@ -93,9 +93,9 @@ interface API {
         @Body initializeRequest: SendNoteModel
     ): Call<GetNoteRoomResponse>
 
-    @GET("/note/list")
+    @GET("/note")
     fun getNoteRoom(
-        @Query("id") id:Int?
+        @Query("id") id:String?
     ): Call<GetNoteRoomResponse>
 
     @GET("/notice")

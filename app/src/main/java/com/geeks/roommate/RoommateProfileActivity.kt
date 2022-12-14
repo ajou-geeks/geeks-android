@@ -41,8 +41,6 @@ class RoommateProfileActivity : AppCompatActivity() {
 
         _binding = ActivityRoommateProfileBinding.inflate(layoutInflater)
 
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         binding.input.setEndIconOnClickListener {
             sendNote()
@@ -69,7 +67,7 @@ class RoommateProfileActivity : AppCompatActivity() {
                     val data = response.body()!! // GsonConverter를 사용해 데이터매핑
 
                     binding.userName.text=data.name
-                    binding.introText.text=data.bio
+                    binding.intro.text=data.bio
                     binding.userEmail.text=data.email
                 }
             }

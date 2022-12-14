@@ -61,7 +61,9 @@ class NoteRoomActivity : AppCompatActivity() {
     private fun getNoteRoom(){
         val id=getId()
 
-        RetrofitBuilder.api.getNoteRoom(id).enqueue(object :
+        Log.d("testlog", id.toString())
+
+        RetrofitBuilder.api.getNoteRoom(id.toString()).enqueue(object :
             Callback<GetNoteRoomResponse> {
             override fun onResponse(
 
@@ -69,7 +71,7 @@ class NoteRoomActivity : AppCompatActivity() {
                 response: Response<GetNoteRoomResponse>
             ) {
                 if (response.isSuccessful) {
-                    Log.d("test", response.body().toString())
+                    Log.d("testlog", response.body().toString())
                     val data = response.body()!! // GsonConverter를 사용해 데이터매핑
 
                     binding.rvList.adapter= NoteRoomAdapter(data.elements)

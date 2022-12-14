@@ -28,7 +28,7 @@ class RoommateListAdapter internal constructor(var roommateList: List<RoommateMo
             itemView.findViewById<TextView>(R.id.name).text = _list.nickname
             itemView.findViewById<TextView>(R.id.score).text = _list.score.toString()
 
-            itemView.findViewById<TextView>(R.id.rank).text = position.toString()
+            itemView.findViewById<TextView>(R.id.rank).text = (position+1).toString()
 
         }
     }
