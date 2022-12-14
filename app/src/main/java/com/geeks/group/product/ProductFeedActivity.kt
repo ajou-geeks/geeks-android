@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import com.geeks.R
 import com.geeks.databinding.ActivityFeedBinding
+import com.geeks.model.JoinModel
 import com.geeks.model.ProductModel
 import com.geeks.retrofit.RetrofitBuilder
 import retrofit2.Call
@@ -45,6 +47,10 @@ class ProductFeedActivity : AppCompatActivity() {
 
         binding.titleText.text="공동택시"
 
+        binding.button.setOnClickListener {
+            joinProduct()
+        }
+
         getProductDetail()
 
         val view=binding.root
@@ -65,16 +71,7 @@ class ProductFeedActivity : AppCompatActivity() {
                     Log.d("test", response.body().toString())
                     val data = response.body()!! // GsonConverter를 사용해 데이터매핑
 
-                    binding.titleText.text=data.name
-                    binding.text1.text=data.destination
-                    binding.text2.text="현재 인원 수 (${data.curParticipant} / ${data.maxParticipant})"
-                    binding.text3.text="마감 시간 - ${data.endTime
-                        .substring(0 until 10).replace("-",". ")}"
-
-                    binding.price1.text=data.price.toString() + " 원"
-
-                    val totalPrice=data.price*data.maxParticipant
-                    binding.price2.text="($totalPrice 원 / ${data.maxParticipant} 명)"
+                    presentData(data)
 
                 }
             }
@@ -85,5 +82,50 @@ class ProductFeedActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun joinProduct(){
+        val id=getId()
+
+        val request=JoinModel(id=id)
+
+        RetrofitBuilder.api.joinProduct(request).enqueue(object :
+            Callback<ProductModel> {
+            override fun onResponse(
+
+                call: Call<ProductModel>,
+                response: Response<ProductModel>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("test", response.body().toString())
+                    val data = response.body()!! // GsonConverter를 사용해 데이터매핑
+
+                    presentData(data)
+
+                    Toast.makeText(this@ProductFeedActivity,
+                        "참여 완료", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
+            override fun onFailure(call: Call<ProductModel>, t: Throwable) {
+                Log.d("test", "실패$t")
+                //Toast.makeText(this@GoodsInfo, "업로드 실패 ..", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun presentData(data: ProductModel){
+        binding.titleText.text=data.name
+        binding.text1.text=data.destination
+        binding.text2.text="현재 인원 수 (${data.curParticipant} / ${data.maxParticipant})"
+        binding.text3.text="마감 시간 - ${data.endTime
+            .substring(0 until 10).replace("-",". ")}"
+
+        binding.price1.text=data.price.toString() + " 원"
+
+        val totalPrice=data.price*data.maxParticipant
+        binding.price2.text="($totalPrice 원 / ${data.maxParticipant} 명)"
     }
 }

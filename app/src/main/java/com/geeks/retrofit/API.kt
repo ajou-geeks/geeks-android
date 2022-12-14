@@ -86,4 +86,9 @@ interface API {
     @GET("/notice")
     fun getNoticeList(
     ): Call<GetNoticeResponse>
+
+    @POST("/product/join")
+    fun joinProduct(
+        @Body initializeRequest: JoinModel
+    ): Call<ProductModel>
 }
