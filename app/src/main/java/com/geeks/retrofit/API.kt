@@ -79,6 +79,11 @@ interface API {
     fun searchRoommate(
     ): Call<SearchRoommateResponse>
 
+    @GET("/roommate/profile/{id}")
+    fun getRoommateProfile(
+        @Path("id") id: Int
+    ): Call<RoommateModel>
+
     @GET("/note/room")
     fun getNoteList(
     ): Call<GetNoteResponse>

@@ -69,7 +69,7 @@ class RoommateSearchActivity : AppCompatActivity() {
 
                                     val intent = Intent(
                                         this@RoommateSearchActivity,
-                                        DeliveryFeedActivity::class.java)
+                                        RoommateProfileActivity::class.java)
 
                                     intent.apply {
                                         this.putExtra("id",id) // 데이터 넣기
