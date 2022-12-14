@@ -12,4 +12,6 @@
     <color name="purple_light">#EADDFF</color>
     <color name="pink_light">#FFFBFE</color>
     <color name="hilight">#E8AA8C</color>
+    <color name="light_gray">#F1F0F4</color>
+    <color name="skyblue">#D7E3F8</color>
 </resources>
