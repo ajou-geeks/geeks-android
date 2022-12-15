@@ -106,4 +106,20 @@ interface API {
     fun joinProduct(
         @Body initializeRequest: JoinModel
     ): Call<ProductModel>
+
+    @POST("/product/close")
+    fun closeProduct(
+        @Body initializeRequest: JoinModel
+    ): Call<ProductModel>
+
+    @POST("/product/settle")
+    fun settleProduct(
+        @Body initializeRequest: SettleModel
+    ): Call<ProductModel>
+
+    @POST("/product/receive")
+    fun receiveProduct(
+        @Body initializeRequest: ReceiveModel
+    ): Call<ProductModel>
+
 }

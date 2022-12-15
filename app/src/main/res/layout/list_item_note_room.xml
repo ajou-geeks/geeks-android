@@ -35,7 +35,7 @@
         android:layout_marginHorizontal="20dp"
         android:text="text_time"
         app:layout_constraintTop_toBottomOf="@id/box"
-        android:gravity="right"
+        android:gravity="left"
         android:textSize="14dp"
         android:textColor="@color/dark_gray"></TextView>
 

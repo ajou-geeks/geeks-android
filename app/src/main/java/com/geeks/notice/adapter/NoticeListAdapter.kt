@@ -15,7 +15,7 @@ class NoticeListAdapter internal constructor(var noticeList: List<NoticeModel>)
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(_list: NoticeModel) {
-            val imageView: ImageView = itemView.findViewById<ImageView>(R.id.thumbnail)
+           // val imageView: ImageView = itemView.findViewById<ImageView>(R.id.thumbnail)
 
             itemView.findViewById<TextView>(R.id.title).text = _list.title
             itemView.findViewById<TextView>(R.id.`object`).text=_list._object

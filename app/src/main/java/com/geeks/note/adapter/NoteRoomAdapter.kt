@@ -20,13 +20,13 @@ class NoteRoomAdapter internal constructor(var noteList: List<NoteRoomModel>)
 
             if(_list.owner){
                 itemView.findViewById<TextView>(R.id.content).gravity= Gravity.RIGHT
-                itemView.findViewById<TextView>(R.id.time).gravity=Gravity.LEFT
+                itemView.findViewById<TextView>(R.id.time).gravity=Gravity.RIGHT
                 itemView.findViewById<View>(R.id.box).setBackgroundResource(R.color.skyblue)
             }
 
             itemView.findViewById<TextView>(R.id.content).text = _list.content
             itemView.findViewById<TextView>(R.id.time).text=_list.createdAt
-                .substring(0 until 10).replace("-",". ")
+                .substring(0 until 16).replace("-",".").replace("T"," ")
 
         }
     }
