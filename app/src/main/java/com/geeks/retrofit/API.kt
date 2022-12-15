@@ -3,6 +3,7 @@ package com.geeks.retrofit
 import com.geeks.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.Response
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -122,4 +123,8 @@ interface API {
         @Body initializeRequest: ReceiveModel
     ): Call<ProductModel>
 
+    @DELETE("/product/{id}")
+    fun deleteProduct(
+        @Path("id") id: Int
+    ): Call<Void>
 }

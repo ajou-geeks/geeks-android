@@ -65,6 +65,8 @@ class DeliveryFeedActivity : AppCompatActivity() {
                     Log.d("test", response.body().toString())
                     val data = response.body()!! // GsonConverter를 사용해 데이터매핑
 
+                    binding.nameText.text="${data.userInfo.nickname}님"
+
                     binding.titleText.text=data.name
                     binding.text1.text=data.destination
                     binding.text2.text="현재 인원 수 (${data.curParticipant} / 무제한)"

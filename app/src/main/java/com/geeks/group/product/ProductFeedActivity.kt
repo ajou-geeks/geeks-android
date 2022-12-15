@@ -72,6 +72,10 @@ class ProductFeedActivity : AppCompatActivity() {
             }
         }
 
+        binding.delete.setOnClickListener {
+            deleteProduct()
+        }
+
         getProductDetail()
 
         val view=binding.root
@@ -247,7 +251,39 @@ class ProductFeedActivity : AppCompatActivity() {
         })
     }
 
+    private fun deleteProduct(){
+        val id=getId()
+
+        RetrofitBuilder.api.deleteProduct(id).enqueue(object :
+            Callback<Void> {
+            override fun onResponse(
+
+                call: Call<Void>,
+                response: Response<Void>
+            ) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@ProductFeedActivity,
+                        "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+
+                    finish()
+
+                } else{
+                    Toast.makeText(this@ProductFeedActivity
+                        , "권한이 없습니다", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("test", "실패$t")
+                //Toast.makeText(this@GoodsInfo, "업로드 실패 ..", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
     private fun presentData(data: ProductModel){
+
+        binding.nameText.text="${data.userInfo.nickname}님"
         binding.titleText.text=data.name
         binding.text1.text=data.destination
         binding.text2.text="현재 인원 수 (${data.curParticipant} / ${data.maxParticipant})"
